@@ -7,10 +7,10 @@ use futures_core::task;
 
 /// A future which is never resolved.
 ///
-/// This future can be created with the `empty` function.
+/// This future can be created with the `pending` function.
 #[derive(Debug)]
 #[must_use = "futures do nothing unless polled"]
-pub struct Empty<T, E> {
+pub struct Pending<T, E> {
     _data: marker::PhantomData<(T, E)>,
 }
 
@@ -18,8 +18,8 @@ pub struct Empty<T, E> {
 /// finishes.
 ///
 /// The returned future will forever return `Async::Pending`.
-pub fn empty<T, E>() -> Empty<T, E> {
-    Empty { _data: marker::PhantomData }
+pub fn pending<T, E>() -> Pending<T, E> {
+    Pending { _data: marker::PhantomData }
 }
 
 impl<T, E> Future for Empty<T, E> {
